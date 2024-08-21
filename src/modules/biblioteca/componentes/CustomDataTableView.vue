@@ -6,7 +6,7 @@
             <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" data-dropdown-delay="2"
                 class="text-sm m-2 p-2 mx-2 px-3 my-2 inline-flex text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 type="button">
-                <pre>Columnas                           </pre>
+                <pre>Columnas</pre>
                 <svg class="pt-1 w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                     viewBox="0 0 10 6">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

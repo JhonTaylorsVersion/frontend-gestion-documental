@@ -16,16 +16,15 @@
         </div>
 
         <!-- Ruta Padre -->
-<div class="mb-3">
-  <label class="block text-gray-700 font-bold mb-2 text-sm">Ruta Padre</label>
-  <select v-model="selectedParentRoute" class="p-2 border border-gray-300 rounded w-full text-sm" required>
-    <option value="" disabled>Seleccione una Ruta Padre</option>
-    <option v-for="ruta in rutas.filter(r => r.value === 0)" :key="ruta.name" :value="ruta.name">
-      {{ ruta.name }}
-    </option>
-  </select>
-</div>
-
+        <div class="mb-3">
+          <label class="block text-gray-700 font-bold mb-2 text-sm">Ruta Padre</label>
+          <select v-model="selectedParentRoute" class="p-2 border border-gray-300 rounded w-full text-sm" required>
+            <option value="" disabled>Seleccione una Ruta Padre</option>
+            <option v-for="ruta in parentRoutes" :key="ruta.name" :value="ruta.name">
+              {{ ruta.name }}
+            </option>
+          </select>
+        </div>
 
         <!-- Componente -->
         <div class="mb-3">
@@ -55,8 +54,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { rutas } from '../dto/myData' // Asegúrate de ajustar la ruta según tu estructura de proyecto
+import { ref, watch } from 'vue'
+import { rutas as rutasData } from '../dto/myData' // Ajusta la ruta según tu estructura de proyecto
+import eventBus from '../eventBus' // Ajusta la ruta según tu estructura
 
 interface Props {
   isOpen: boolean
@@ -71,6 +71,27 @@ const selectedParentRoute = ref('')
 const componentName = ref('')
 const indexedDbName = ref('')
 
+// Cargar las rutas padre inicialmente
+const parentRoutes = ref(
+  rutasData.filter(ruta => ruta.value === 0)
+)
+
+// Sincronizar las rutas con el almacenamiento local
+const updateParentRoutesFromLocalStorage = () => {
+  const storedRoutes = localStorage.getItem('rutas')
+  if (storedRoutes) {
+    const storedRutas = JSON.parse(storedRoutes)
+    parentRoutes.value = rutasData.filter(ruta => ruta.value === 0)
+  }
+}
+
+// Ejecutar cuando el modal se abre
+watch(() => props.isOpen, (newValue) => {
+  if (newValue) {
+    updateParentRoutesFromLocalStorage()
+  }
+})
+
 const closeModal = () => {
   emit('close')
 }
@@ -83,7 +104,15 @@ const handleSubmit = () => {
     component: componentName.value,
     indexedDb: indexedDbName.value
   }
+
+  // Actualizar el array de rutas y guardar en localStorage
+  const storedRoutes = localStorage.getItem('rutas')
+  const existingRoutes = storedRoutes ? JSON.parse(storedRoutes) : []
+  const updatedRoutes = [...existingRoutes, newRoute]
+  localStorage.setItem('rutas', JSON.stringify(updatedRoutes))
+
   emit('create', newRoute)
+  eventBus.emit('route-added', newRoute) // Emitir el evento
   closeModal()
 }
 </script>

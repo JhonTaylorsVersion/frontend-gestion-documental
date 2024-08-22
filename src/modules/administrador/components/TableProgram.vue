@@ -38,15 +38,13 @@
         </div>
       </div>
       <div class="relative inline-block text-right m-2">
-  <button
-    class="text-sm p-3 px-5 bg-blue-500 text-white rounded-lg border-2 border-transparent shadow-lg ring-blue-500 ring-opacity-20 ring-offset-2 hover:bg-blue-700 hover:shadow-xl focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50 transition-transform transform hover:scale-105 focus:scale-105"
-  >
-    Asignar
-  </button>
-</div>
-
+        <button
+          class="text-sm p-3 px-5 bg-blue-500 text-white rounded-lg border-2 border-transparent shadow-lg ring-blue-500 ring-opacity-20 ring-offset-2 hover:bg-blue-700 hover:shadow-xl focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50 transition-transform transform hover:scale-105 focus:scale-105"
+        >
+          Asignar
+        </button>
+      </div>
     </div>
-
 
     <div>
       <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between p-4" aria-label="Table navigation">
@@ -552,3 +550,6 @@ const toggleAssignment = (user: DataRow) => {
   // ActualizarEstadoEnServidor(user);
 }
 </script>
+
+
+TOMANDO LAS COLUMNAS QUE VIENEN DESDE EL BACKEND, SIN ORDENAR
